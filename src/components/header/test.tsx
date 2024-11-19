@@ -1,12 +1,17 @@
 import { render, screen } from '@testing-library/react'
-
 import { Header } from '.'
 
-describe('<Main />', () => {
-  it('should render the heading', () => {
-    const { container } = render(<Header />)
+describe('<Header />', () => {
+  it('should render the logo', () => {
+    render(<Header />)
+    expect(screen.getByRole('img', { name: /logo/i })).toBeInTheDocument()
+  })
 
-    expect(screen.getByRole('heading', { name: /header/i })).toBeInTheDocument()
-    expect(container.firstChild).toMatchSnapshot()
+  it('should render the link', () => {
+    render(<Header />)
+    expect(screen.getByRole('link', { name: /logo/i })).toHaveAttribute(
+      'href',
+      '/'
+    )
   })
 })
