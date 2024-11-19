@@ -10,7 +10,8 @@ import {
   PieChart,
   ShoppingBasket,
   Shuffle,
-  UserCircle
+  UserCircle,
+  Wallet
 } from 'lucide-react'
 
 import {
@@ -68,6 +69,12 @@ export const NavLinks = () => {
           active: pathname === '/orders'
         }
       ]
+    },
+    {
+      icon: Wallet,
+      href: '/finance',
+      name: 'Financeiro',
+      active: pathname === '/finance'
     }
   ]
 
