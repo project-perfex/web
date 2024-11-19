@@ -10,6 +10,7 @@ import {
   ShoppingBasket,
   Shuffle,
   UserCircle,
+  Users,
   Wallet
 } from 'lucide-react'
 
@@ -33,12 +34,6 @@ export const MainNav = () => {
       active: pathname === '/analytics'
     },
     {
-      icon: UserCircle,
-      href: '/customers',
-      name: 'Clientes',
-      active: pathname === '/customers'
-    },
-    {
       icon: ShoppingBasket,
       href: '#',
       name: 'E-commerce',
@@ -56,6 +51,12 @@ export const MainNav = () => {
           active: pathname === '/products'
         },
         {
+          icon: UserCircle,
+          href: '/customers',
+          name: 'Clientes',
+          active: pathname === '/customers'
+        },
+        {
           icon: Shuffle,
           href: '/orders',
           name: 'Pedidos',
@@ -68,6 +69,12 @@ export const MainNav = () => {
       href: '/finance',
       name: 'Financeiro',
       active: pathname === '/finance'
+    },
+    {
+      icon: Users,
+      href: '/users',
+      name: 'Usuários',
+      active: pathname === '/users'
     }
   ]
 
