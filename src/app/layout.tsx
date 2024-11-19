@@ -1,10 +1,10 @@
 import type { Metadata } from 'next'
 
-import { Montserrat } from 'next/font/google'
+import { Inter } from 'next/font/google'
 
 import './globals.css'
 
-const font = Montserrat({ subsets: ['latin'] })
+const font = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Create Next App',
