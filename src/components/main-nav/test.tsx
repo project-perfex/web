@@ -1,20 +1,20 @@
 // src/components/nav-links/test.test.tsx
 import { render, screen, fireEvent } from '@testing-library/react'
 import { usePathname } from 'next/navigation'
-import { NavLinks } from '.'
+import { MainNav } from '.'
 
 // Mock the usePathname function from Next.js
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn()
 }))
 
-describe('NavLinks Component', () => {
+describe('MainNav Component', () => {
   it('renders the correct links and highlights the active one', () => {
     // Simulate the pathname value
     ;(usePathname as jest.Mock).mockReturnValue('/analytics')
 
     // Render the component
-    render(<NavLinks />)
+    render(<MainNav />)
 
     // Verify the main links are rendered
     expect(screen.getByText('Dashboard')).toBeInTheDocument()
@@ -35,7 +35,7 @@ describe('NavLinks Component', () => {
     ;(usePathname as jest.Mock).mockReturnValue('/categories')
 
     // Render the component
-    render(<NavLinks />)
+    render(<MainNav />)
 
     // Verify the main E-commerce link exists
     const eCommerceLink = screen.getByText('E-commerce')
