@@ -20,6 +20,7 @@ describe('NavLinks Component', () => {
     expect(screen.getByText('Dashboard')).toBeInTheDocument()
     expect(screen.getByText('Analytics')).toBeInTheDocument()
     expect(screen.getByText('Clientes')).toBeInTheDocument()
+    expect(screen.getByText('Financeiro')).toBeInTheDocument()
     expect(screen.getByText('E-commerce')).toBeInTheDocument()
 
     // Verify the active link is highlighted
