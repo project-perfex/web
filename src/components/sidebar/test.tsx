@@ -1,21 +1,21 @@
 import { render, screen } from '@testing-library/react'
-import { Sidebar } from '../sidebar'
+import { Sidebar } from '.'
 
 jest.mock('../header', () => ({
   Header: () => <div data-testid="header-mock">Header Mock</div>
 }))
 
-jest.mock('../nav-links', () => ({
-  NavLinks: () => <div data-testid="navlinks-mock">NavLinks Mock</div>
+jest.mock('../main-nav', () => ({
+  MainNav: () => <div data-testid="mainnav-mock">Mainnav Mock</div>
 }))
 
 describe('Sidebar Component', () => {
-  it('should render the Header and NavLinks components', () => {
+  it('should render the Header and mainnav components', () => {
     render(<Sidebar />)
 
     expect(screen.getByTestId('header-mock')).toBeInTheDocument()
 
-    expect(screen.getByTestId('navlinks-mock')).toBeInTheDocument()
+    expect(screen.getByTestId('mainnav-mock')).toBeInTheDocument()
   })
 
   it('should have the correct class for styling', () => {
