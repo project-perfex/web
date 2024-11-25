@@ -3,17 +3,24 @@ import api from '@/lib/axios'
 import { GetUsersQuery, GetUsersResponse } from '@/modules/users/types/users'
 
 export const getUsers = async (param: GetUsersQuery = {}) => {
-  const { name, email, role } = param
+  const { name, email, page, limit, total } = param
 
-  const { data } = await api.get<GetUsersResponse>('/users', {
+  const {
+    data: { data, meta }
+  } = await api.get<GetUsersResponse>('/users', {
     params: {
       name,
       email,
-      role
+      page,
+      limit,
+      total
     }
   })
 
-  return data
+  return {
+    data,
+    meta
+  }
 }
 
 export const getUserById = async (id: string) => {

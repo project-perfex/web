@@ -9,13 +9,15 @@ export interface Users {
   updatedAt?: string | null
 }
 
+export interface GetUsersPagination {
+  total: number
+  page: number
+  limit: number
+}
+
 export interface GetUsersResponse {
   data: Users[]
-  meta: {
-    total: number
-    page: number
-    limit: number
-  }
+  meta: GetUsersPagination
 }
 
 export interface GetUsersQuery {
@@ -24,5 +26,4 @@ export interface GetUsersQuery {
   limit?: number
   name?: string | null
   email?: string | null
-  role?: string | null
 }
