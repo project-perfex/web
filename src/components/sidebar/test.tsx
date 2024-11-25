@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { Sidebar } from '.'
 
-jest.mock('../header', () => ({
-  Header: () => <div data-testid="header-mock">Header Mock</div>
+jest.mock('../logo', () => ({
+  Logo: () => <div data-testid="logo-mock">Logo Mock</div>
 }))
 
 jest.mock('../main-nav', () => ({
@@ -13,7 +13,7 @@ describe('Sidebar Component', () => {
   it('should render the Header and mainnav components', () => {
     render(<Sidebar />)
 
-    expect(screen.getByTestId('header-mock')).toBeInTheDocument()
+    expect(screen.getByTestId('logo-mock')).toBeInTheDocument()
 
     expect(screen.getByTestId('mainnav-mock')).toBeInTheDocument()
   })
