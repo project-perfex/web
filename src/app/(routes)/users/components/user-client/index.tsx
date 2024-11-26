@@ -24,10 +24,7 @@ export const UsersClient = ({ data, setData }: UsersClientProps) => {
       <div className="flex items-center justify-between">
         <Heading title="Usuários" description="Gerenciamento de usuários" />
 
-        <Button
-          className="text-xs bg-violet-500"
-          onClick={() => router.push(`/users/new`)}
-        >
+        <Button className="text-xs" onClick={() => router.push(`/users/new`)}>
           <PlusCircle className="size-4" />
           Novo Usuário
         </Button>
