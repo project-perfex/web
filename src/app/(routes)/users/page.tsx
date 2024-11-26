@@ -6,8 +6,8 @@ import useFetchData from '@/hooks/useFetchData'
 import useFetchMeta from '@/hooks/useFetchMeta'
 import usePagination from '@/hooks/usePagination'
 
+import { PaginationMeta } from '@/app/(routes)/users/components/user-client/components/data-table/data-table-pagination'
 import { UsersClient } from './components/user-client'
-import { PaginationMeta } from './components/user-client/components/data-table/data-table-pagination'
 
 const UsersPage = () => {
   const meta = useFetchMeta()

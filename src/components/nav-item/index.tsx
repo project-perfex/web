@@ -11,6 +11,7 @@ interface NavItemProps {
     icon: React.ElementType
     href: string
     name: string
+    active?: boolean
   }
 }
 
@@ -34,7 +35,8 @@ export const NavItem = ({ route }: NavItemProps) => {
           hover:bg-violet-500
           hover:text-white
         `,
-        pathname === route.href && 'bg-violet-500 text-white'
+        pathname === route.href && 'bg-violet-500 text-white',
+        route.active && 'bg-violet-500 text-white'
       )}
     >
       <route.icon className="size-5" />

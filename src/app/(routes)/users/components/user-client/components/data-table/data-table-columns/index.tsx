@@ -30,16 +30,28 @@ export const columns: ColumnDef<Users>[] = [
     accessorKey: 'role',
     header: 'Tipo',
     cell: ({ getValue }) => {
-      const getClassName = (value: string) => {
+      const getClassNameAndText = (value: string) => {
         switch (value) {
           case 'ADMIN':
-            return 'bg-emerald-500'
+            return {
+              className: 'bg-violet-500',
+              text: 'Administrador'
+            }
           case 'USER':
-            return 'bg-gray-300 text-gray-500'
+            return {
+              className: 'bg-gray-300 text-gray-500',
+              text: 'Usuário'
+            }
           case 'MODERATOR':
-            return 'bg-orange-500'
+            return {
+              className: 'bg-yellow-500',
+              text: 'Moderador'
+            }
           default:
-            return '-'
+            return {
+              className: '',
+              text: '-'
+            }
         }
       }
 
@@ -50,17 +62,17 @@ export const columns: ColumnDef<Users>[] = [
             flex
             justify-center
             p-1
-            w-24
+            w-28
             rounded-md
             font-semibold
             text-xs
             uppercase
             text-white
           `,
-            getClassName(String(getValue()))
+            getClassNameAndText(String(getValue())).className
           )}
         >
-          {String(getValue())}
+          {getClassNameAndText(String(getValue())).text}
         </span>
       )
     }
