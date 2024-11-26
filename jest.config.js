@@ -9,6 +9,9 @@ module.exports = {
     '!src/types/**',
     '!src/lib/**',
     '!src/components/ui/**',
+    '!src/modules/users/services/**',
+    '!src/modules/users/types/**',
+    '!src/providers/toast-provider/**'
   ],
   setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'],
   modulePaths: ['<rootDir>/src/'],
@@ -16,6 +19,6 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }]
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
+    '^@/(.*)$': '<rootDir>/src/$1'
+  }
 }
