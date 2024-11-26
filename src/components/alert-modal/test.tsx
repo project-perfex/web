@@ -1,5 +1,3 @@
-// src/components/alert-modal/test.test.tsx
-
 import { render, screen, fireEvent } from '@testing-library/react'
 import { AlertModal } from '.'
 

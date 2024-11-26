@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react'
-import { DataTable } from '.'
 import { ColumnDef } from '@tanstack/react-table'
+import { DataTable } from '.'
 
 interface TestData {
   id: number

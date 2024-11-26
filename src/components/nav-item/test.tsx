@@ -3,7 +3,6 @@ import { render } from '@testing-library/react'
 import { NavItem } from '.'
 import { usePathname } from 'next/navigation'
 
-// Mock the usePathname hook
 jest.mock('next/navigation', () => ({
   usePathname: jest.fn()
 }))

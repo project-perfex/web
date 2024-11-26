@@ -7,6 +7,7 @@ module.exports = {
     '!src/app/**', // should be tested in e2e
     '!src/lib/registry.tsx',
     '!src/types/**',
+    '!src/hooks/**',
     '!src/lib/**',
     '!src/components/ui/**',
     '!src/modules/users/services/**',
