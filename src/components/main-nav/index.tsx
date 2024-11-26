@@ -74,7 +74,7 @@ export const MainNav = () => {
       icon: Users,
       href: '/users',
       name: 'Usuários',
-      active: pathname === '/users'
+      active: /^\/users(\/|$)/.test(pathname)
     }
   ]
 

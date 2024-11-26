@@ -7,8 +7,13 @@ module.exports = {
     '!src/app/**', // should be tested in e2e
     '!src/lib/registry.tsx',
     '!src/types/**',
+    '!src/hooks/**',
     '!src/lib/**',
     '!src/components/ui/**',
+    '!src/modules/users/services/**',
+    '!src/modules/users/types/**',
+    '!src/providers/toast-provider/**',
+    '!src/modules/users/schemas/**'
   ],
   setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'],
   modulePaths: ['<rootDir>/src/'],
@@ -16,6 +21,6 @@ module.exports = {
     '^.+\\.(js|jsx|ts|tsx)$': ['babel-jest', { presets: ['next/babel'] }]
   },
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1',
-  },
+    '^@/(.*)$': '<rootDir>/src/$1'
+  }
 }

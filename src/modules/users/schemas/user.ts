@@ -16,9 +16,23 @@ export const formSchema = z.object({
   name: z.string().min(2, {
     message: 'A nome precisa conter pelo menos 2 caracteres!'
   }),
-  phone: z.string().min(2, {
-    message: 'A telefone precisa conter pelo menos 9 caracteres!'
-  }),
+  phone: z
+    .string()
+    .min(11, {
+      message: 'A telefone precisa conter pelo menos 11 caracteres!'
+    })
+    .refine(
+      (value) => {
+        if (value) {
+          const phone = value.replace(/\D/g, '')
+          return phone.length >= 11
+        }
+        return true
+      },
+      {
+        message: 'Telefone inválido!'
+      }
+    ),
   role: z.string().min(2, {
     message: 'A nome precisa conter pelo menos 2 caracteres!'
   })

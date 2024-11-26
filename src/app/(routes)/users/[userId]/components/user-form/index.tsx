@@ -10,6 +10,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Edit, PlusCircle, XCircle } from 'lucide-react'
 
+import bcrypt from 'bcryptjs'
+
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -27,7 +29,6 @@ import { formSchema, UserFormValues } from '@/modules/users/schemas/user'
 
 import { Users } from '@/modules/users/types/users'
 
-import api from '@/lib/axios'
 import {
   Select,
   SelectContent,
@@ -35,6 +36,11 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+
+import { addUser, updateUser } from '@/modules/users/services/users'
+
+import { AxiosError } from 'axios'
+import { CustomInput } from '@/components/custom-input'
 
 interface UserFormProps {
   initialData: Users | null
@@ -73,17 +79,26 @@ export const UserForm = ({ initialData }: UserFormProps) => {
   const onSubmit = async (data: UserFormValues) => {
     try {
       setLoading(true)
+      const hashedPassword = await bcrypt.hash(data.password, 10)
+      const userSave = { ...data, password: hashedPassword }
       if (initialData) {
-        await api.put(`/users/${params.userId}`, data)
+        await updateUser(`${params.userId}`, userSave)
       } else {
-        await api.post(`/users`, data)
+        await addUser(userSave)
       }
       router.refresh()
       router.push(`/users`)
       toast.success(toastMessage)
     } catch (error) {
-      console.log(error)
-      toast.error('Houve um erro ao atualizar!')
+      if (
+        error instanceof AxiosError &&
+        error.response &&
+        error.response.data
+      ) {
+        toast.error(error.response.data.message)
+      } else {
+        toast.error('Houve um erro ao atualizar!')
+      }
     } finally {
       setLoading(false)
     }
@@ -142,9 +157,11 @@ export const UserForm = ({ initialData }: UserFormProps) => {
                 <FormItem>
                   <FormLabel>Telefone</FormLabel>
                   <FormControl>
-                    <Input
+                    <CustomInput
+                      type="tel"
                       disabled={loading}
-                      placeholder="Digite o telefone"
+                      placeholder="(XX) XXXXX-XXXX"
+                      mask="(99) 99999-9999"
                       {...field}
                     />
                   </FormControl>
@@ -186,8 +203,9 @@ export const UserForm = ({ initialData }: UserFormProps) => {
                       <SelectValue placeholder="Selecione o tipo" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="ADMIN">ADMIN</SelectItem>
+                      <SelectItem value="ADMIN">Administrador</SelectItem>
                       <SelectItem value="USER">Usuário</SelectItem>
+                      <SelectItem value="MODERATOR">Moderador</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -209,19 +227,17 @@ export const UserForm = ({ initialData }: UserFormProps) => {
               )}
               {action}
             </Button>
-            {initialData && (
-              <Button
-                size="sm"
-                type="button"
-                variant="destructive"
-                disabled={loading}
-                className="ml-2"
-                onClick={() => router.push(`/users`)}
-              >
-                <XCircle className="size-4" />
-                Cancelar
-              </Button>
-            )}
+            <Button
+              size="sm"
+              type="button"
+              variant="destructive"
+              disabled={loading}
+              className="ml-2"
+              onClick={() => router.push(`/users`)}
+            >
+              <XCircle className="size-4" />
+              Cancelar
+            </Button>
           </div>
         </form>
       </Form>
