@@ -5,9 +5,9 @@ import { PlusCircle } from 'lucide-react'
 import { Heading } from '@/components/heading'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { DataTable } from '@/components/data-table'
-import { columns } from './components/columns'
-import { Filters } from './components/filters'
+import { columns } from './components/data-table/data-table-columns'
+import { Filters } from './components/data-table/data-table-filters'
+import { DataTable } from './components/data-table'
 
 import { Users } from '@/modules/users/types/users'
 

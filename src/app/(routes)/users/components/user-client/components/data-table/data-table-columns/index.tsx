@@ -4,7 +4,7 @@ import { ColumnDef } from '@tanstack/react-table'
 
 import { format } from 'date-fns'
 
-import { CellAction } from './cell-action'
+import { CellAction } from '../data-table-cell-action'
 
 import { Users } from '@/modules/users/types/users'
 
