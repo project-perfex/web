@@ -17,9 +17,9 @@ import {
 
 import { Button } from '@/components/ui/button'
 
-import api from '@/lib/axios'
 import { Users } from '@/modules/users/types/users'
 import { AlertModal } from '@/components/alert-modal'
+import { deleteUser } from '@/modules/users/services/users'
 
 interface CellActionProps {
   data: Users
@@ -34,8 +34,9 @@ export const CellAction = ({ data }: CellActionProps) => {
   const onDelete = async () => {
     try {
       setLoading(true)
-      await api.delete(`/users/${data.id}`)
+      await deleteUser(`${data.id}`)
       router.refresh()
+      router.push(`/users`)
       toast.success('Registro excluido com sucesso!')
     } catch (error) {
       toast.error('Houve um erro ao excluir o registro!')
