@@ -21,7 +21,7 @@ export const PaginationMeta = ({
       <div className="flex items-center justify-between gap-2 bg-white p-4 rounded-lg">
         <div className="flex flex-col space-y-2">
           <span className="text-sm text-gray-500">
-            Página {page} de {meta.limit}
+            Página {page} de {Math.ceil(meta.total / meta.limit)}
           </span>
           <span className="text-sm text-gray-500 font-bold">
             Total: {meta.total} registro(s)
@@ -32,13 +32,15 @@ export const PaginationMeta = ({
             size="icon"
             onClick={handlePreviousPage}
             disabled={page === 1}
+            aria-label="arrowlefticon"
           >
             <ArrowLeftIcon className="size-4" />
           </Button>
           <Button
             size="icon"
             onClick={handleNextPage}
-            disabled={meta && page === meta.total}
+            disabled={meta && page === Math.ceil(meta.total / meta.limit)}
+            aria-label="arrowrighticon"
           >
             <ArrowRightIcon className="size-4" />
           </Button>

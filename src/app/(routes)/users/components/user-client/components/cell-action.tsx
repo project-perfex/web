@@ -38,6 +38,7 @@ export const CellAction = ({ data }: CellActionProps) => {
       router.refresh()
       router.push(`/users`)
       toast.success('Registro excluido com sucesso!')
+      window.location.reload()
     } catch (error) {
       toast.error('Houve um erro ao excluir o registro!')
     } finally {
