@@ -10,6 +10,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Edit, PlusCircle, XCircle } from 'lucide-react'
 
+import bcrypt from 'bcryptjs'
+
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import {
@@ -27,7 +29,6 @@ import { formSchema, UserFormValues } from '@/modules/users/schemas/user'
 
 import { Users } from '@/modules/users/types/users'
 
-import api from '@/lib/axios'
 import {
   Select,
   SelectContent,
@@ -35,6 +36,9 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+
+import { addUser, updateUser } from '@/modules/users/services/users'
+import { PhoneInput } from '@/components/phone-input'
 
 interface UserFormProps {
   initialData: Users | null
@@ -73,10 +77,12 @@ export const UserForm = ({ initialData }: UserFormProps) => {
   const onSubmit = async (data: UserFormValues) => {
     try {
       setLoading(true)
+      const hashedPassword = await bcrypt.hash(data.password, 10)
+      const userSave = { ...data, password: hashedPassword }
       if (initialData) {
-        await api.put(`/users/${params.userId}`, data)
+        await updateUser(`${params.userId}`, userSave)
       } else {
-        await api.post(`/users`, data)
+        await addUser(userSave)
       }
       router.refresh()
       router.push(`/users`)
@@ -142,11 +148,7 @@ export const UserForm = ({ initialData }: UserFormProps) => {
                 <FormItem>
                   <FormLabel>Telefone</FormLabel>
                   <FormControl>
-                    <Input
-                      disabled={loading}
-                      placeholder="Digite o telefone"
-                      {...field}
-                    />
+                    <PhoneInput disabled={loading} {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -186,8 +188,9 @@ export const UserForm = ({ initialData }: UserFormProps) => {
                       <SelectValue placeholder="Selecione o tipo" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="ADMIN">ADMIN</SelectItem>
+                      <SelectItem value="ADMIN">Administrador</SelectItem>
                       <SelectItem value="USER">Usuário</SelectItem>
+                      <SelectItem value="MODERATOR">Moderador</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
