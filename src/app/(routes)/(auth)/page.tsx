@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 
+import Cookies from 'js-cookie'
+import { jwtDecode } from 'jwt-decode'
+
 import { Heading } from '@/components/heading'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { authFormSchema, AuthFormValues } from '@/modules/auth/schemas/auth'
 import {
   Form,
   FormControl,
@@ -19,9 +21,15 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 
 import { userLogin } from '@/modules/auth/services/auth'
+import { authFormSchema, AuthFormValues } from '@/modules/auth/schemas/auth'
+import toast from 'react-hot-toast'
 
 const AuthPage = () => {
   const [loading, setLoading] = useState(false)
+  const [userData, setUserData] = useState<{
+    name: string
+    role: string
+  } | null>(null)
 
   const form = useForm<AuthFormValues>({
     resolver: zodResolver(authFormSchema),
@@ -31,12 +39,25 @@ const AuthPage = () => {
     }
   })
 
+  useEffect(() => {
+    const token = Cookies.get('perfex-cookie')
+    if (token) {
+      const decodedToken: { name: string; role: string } = jwtDecode(token)
+      setUserData(decodedToken)
+    }
+  }, [])
+
   const onSubmit = async (data: AuthFormValues) => {
     try {
       setLoading(true)
       const response = await userLogin(data)
-      console.log(response.data)
+      Cookies.set('perfex-cookie', response.data.token)
+      const decodedToken: { name: string; role: string } = jwtDecode(
+        response.data.token
+      )
+      setUserData(decodedToken)
     } catch (error) {
+      toast.error('Usuário ou senha inválidos')
       console.error(error)
     } finally {
       setLoading(false)
@@ -56,6 +77,12 @@ const AuthPage = () => {
             </CardTitle>
           </CardHeader>
           <CardContent>
+            {userData && (
+              <div>
+                <p>Name: {userData.name}</p>
+                <p>Role: {userData.role}</p>
+              </div>
+            )}
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
