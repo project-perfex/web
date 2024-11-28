@@ -23,9 +23,9 @@ export const MainNav = () => {
   const routes = [
     {
       icon: LayoutDashboard,
-      href: '/',
+      href: '/dashboard',
       name: 'Dashboard',
-      active: pathname === '/'
+      active: pathname === '/dashboard'
     },
     {
       icon: PieChart,
