@@ -14,7 +14,9 @@ module.exports = {
     '!src/modules/users/types/**',
     '!src/providers/toast-provider/**',
     '!src/modules/users/schemas/**',
-    '!src/modules/auth/types/**'
+    '!src/modules/auth/types/**',
+    '!src/modules/auth/schemas/**',
+    '!src/modules/auth/services/**'
   ],
   setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'],
   modulePaths: ['<rootDir>/src/'],
