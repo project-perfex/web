@@ -27,7 +27,7 @@ import { Heading } from '@/components/heading'
 
 import { formSchema, UserFormValues } from '@/modules/users/schemas/user'
 
-import { Users } from '@/modules/users/types/users'
+import { UserRole, Users } from '@/modules/users/types/users'
 
 import {
   Select,
@@ -203,9 +203,13 @@ export const UserForm = ({ initialData }: UserFormProps) => {
                       <SelectValue placeholder="Selecione o tipo" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="ADMIN">Administrador</SelectItem>
-                      <SelectItem value="USER">Usuário</SelectItem>
-                      <SelectItem value="MODERATOR">Moderador</SelectItem>
+                      <SelectItem value={UserRole.ADMIN}>
+                        Administrador
+                      </SelectItem>
+                      <SelectItem value={UserRole.USER}>Usuário</SelectItem>
+                      <SelectItem value={UserRole.MODERATOR}>
+                        Moderador
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />

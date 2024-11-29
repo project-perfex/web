@@ -9,20 +9,24 @@ import { columns } from './components/data-table/data-table-columns'
 import { Filters } from './components/data-table/data-table-filters'
 import { DataTable } from './components/data-table'
 
-import { UsersClientProps } from '@/modules/users/types/users'
+import { UserRole, UsersClientProps } from '@/modules/users/types/users'
+import { useAuth } from '@/hooks/useAuth'
 
 export const UsersClient = ({ data, setData }: UsersClientProps) => {
   const router = useRouter()
+  const { userData } = useAuth()
 
   return (
     <>
       <div className="flex items-center justify-between">
         <Heading title="Usuários" description="Gerenciamento de usuários" />
 
-        <Button className="text-xs" onClick={() => router.push(`/users/new`)}>
-          <PlusCircle className="size-4" />
-          Novo Usuário
-        </Button>
+        {userData?.role.includes(UserRole.ADMIN) && (
+          <Button className="text-xs" onClick={() => router.push(`/users/new`)}>
+            <PlusCircle className="size-4" />
+            Novo Usuário
+          </Button>
+        )}
       </div>
       <Separator />
       <Filters setData={setData} />

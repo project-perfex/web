@@ -32,3 +32,9 @@ export interface UsersClientProps {
   data: Users[]
   setData: (data: Users[]) => void
 }
+
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  MODERATOR = 'MODERATOR',
+  USER = 'USER'
+}

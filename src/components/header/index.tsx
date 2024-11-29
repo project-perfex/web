@@ -26,7 +26,7 @@ export const Header = () => {
 
   return (
     <div className="flex items-center justify-end w-full gap-4 bg-white p-4">
-      <div className="flex items-center gap-2 uppercase text-xs font-bold">
+      <div className="flex items-center gap-1 uppercase text-xs font-bold">
         Olá,{' '}
         {userData ? (
           <span className="text-violet-500 font-extrabold">

@@ -3,7 +3,11 @@ import { usePathname } from 'next/navigation'
 import { MainNav } from '.'
 
 jest.mock('next/navigation', () => ({
-  usePathname: jest.fn()
+  usePathname: jest.fn(),
+  useRouter: () => ({
+    push: jest.fn(),
+    prefetch: jest.fn()
+  })
 }))
 
 describe('MainNav Component', () => {

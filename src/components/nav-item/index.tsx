@@ -12,6 +12,7 @@ interface NavItemProps {
     href: string
     name: string
     active?: boolean
+    isAdmin?: boolean
   }
 }
 
@@ -36,7 +37,8 @@ export const NavItem = ({ route }: NavItemProps) => {
           hover:text-white
         `,
         pathname === route.href && 'bg-violet-500 text-white',
-        route.active && 'bg-violet-500 text-white'
+        route.active && 'bg-violet-500 text-white',
+        route.isAdmin && 'hidden'
       )}
     >
       <route.icon className="size-5" />
