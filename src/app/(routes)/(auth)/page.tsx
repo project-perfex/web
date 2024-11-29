@@ -1,7 +1,11 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+
+import { useRouter } from 'next/navigation'
+
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import Cookies from 'js-cookie'
@@ -22,9 +26,10 @@ import { Button } from '@/components/ui/button'
 
 import { userLogin } from '@/modules/auth/services/auth'
 import { authFormSchema, AuthFormValues } from '@/modules/auth/schemas/auth'
-import toast from 'react-hot-toast'
 
 const AuthPage = () => {
+  const router = useRouter()
+
   const [loading, setLoading] = useState(false)
   const [userData, setUserData] = useState<{
     name: string
@@ -40,22 +45,26 @@ const AuthPage = () => {
   })
 
   useEffect(() => {
-    const token = Cookies.get('perfex-cookie')
+    const token = Cookies.get(process.env.NEXT_PUBLIC_COOKIE_SECRET as string)
+
     if (token) {
-      const decodedToken: { name: string; role: string } = jwtDecode(token)
-      setUserData(decodedToken)
+      router.push('/dashboard')
     }
-  }, [])
+  }, [router])
 
   const onSubmit = async (data: AuthFormValues) => {
     try {
       setLoading(true)
       const response = await userLogin(data)
-      Cookies.set('perfex-cookie', response.data.token)
+      Cookies.set(
+        process.env.NEXT_PUBLIC_COOKIE_SECRET as string,
+        response.data.token
+      )
       const decodedToken: { name: string; role: string } = jwtDecode(
         response.data.token
       )
       setUserData(decodedToken)
+      router.push('/users')
     } catch (error) {
       toast.error('Usuário ou senha inválidos')
       console.error(error)

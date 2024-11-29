@@ -2,17 +2,21 @@
 
 import { useEffect } from 'react'
 
-import useFetchData from '@/hooks/useFetchData'
 import useFetchMeta from '@/hooks/useFetchMeta'
 import usePagination from '@/hooks/usePagination'
 
-import { PaginationMeta } from '@/app/(routes)/(app)/users/components/user-client/components/data-table/data-table-pagination'
+import { PaginationMeta } from './components/user-client/components/data-table/data-table-pagination'
 import { UsersClient } from './components/user-client'
+
+import useFetchData from '@/hooks/useFetchData'
+import useAuthToken from '@/hooks/useAuthToken'
 
 const UsersPage = () => {
   const meta = useFetchMeta()
   const { data, fetchData, setData } = useFetchData(meta)
   const { page, handleNextPage, handlePreviousPage } = usePagination(meta)
+
+  useAuthToken()
 
   useEffect(() => {
     if (meta) {

@@ -7,7 +7,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const token = Cookies.get('perfex-cookie')
+    const token = Cookies.get(process.env.NEXT_PUBLIC_COOKIE_SECRET as string)
     if (token) {
       config.headers.Authorization = `Bearer ${token}`
     }
