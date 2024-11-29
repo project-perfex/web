@@ -17,7 +17,7 @@ spec:
         image: geraldobl58/perfex-web:v1
         ports:
           - name: http
-            containerPort: 8080
+            containerPort: 3000
             protocol: TCP
 
 ---
@@ -33,4 +33,4 @@ spec:
     - name: http
       port: 80
       protocol: TCP
-      targetPort: 30000
+      targetPort: 3000
