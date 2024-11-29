@@ -1,3 +1,4 @@
+import { Header } from '@/components/header'
 import { MobileSidebar } from '@/components/mobile-sidebar'
 import { Sidebar } from '@/components/sidebar'
 
@@ -14,7 +15,12 @@ const RoutesLayout = ({ children }: RoutesLayoutProps) => {
       <div className="hidden max-md:flex items-start m-2">
         <MobileSidebar />
       </div>
-      <main className="flex-1 bg-gray-100">{children}</main>
+      <main className="flex-1 bg-gray-100">
+        <div>
+          <Header />
+        </div>
+        {children}
+      </main>
     </div>
   )
 }
