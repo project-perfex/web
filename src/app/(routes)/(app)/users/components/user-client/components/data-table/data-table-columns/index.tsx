@@ -6,7 +6,7 @@ import { format } from 'date-fns'
 
 import { CellAction } from '../data-table-cell-action'
 
-import { Users } from '@/modules/users/types/users'
+import { UserRole, Users } from '@/modules/users/types/users'
 
 import { cn, maskValue } from '@/lib/utils'
 
@@ -32,17 +32,17 @@ export const columns: ColumnDef<Users>[] = [
     cell: ({ getValue }) => {
       const getClassNameAndText = (value: string) => {
         switch (value) {
-          case 'ADMIN':
+          case UserRole.ADMIN:
             return {
               className: 'bg-violet-500',
               text: 'Administrador'
             }
-          case 'USER':
+          case UserRole.USER:
             return {
               className: 'bg-gray-300 text-gray-500',
               text: 'Usuário'
             }
-          case 'MODERATOR':
+          case UserRole.MODERATOR:
             return {
               className: 'bg-yellow-500',
               text: 'Moderador'

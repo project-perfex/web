@@ -45,7 +45,7 @@ export const LoadingState = ({ columns }: LoadingStateProps) => (
         <TableRow>
           {columns.map((column, index) => (
             <TableHead key={index}>
-              <Skeleton className="h-8 w-full" />
+              <Skeleton className="h-6 w-full" />
             </TableHead>
           ))}
         </TableRow>
@@ -55,7 +55,7 @@ export const LoadingState = ({ columns }: LoadingStateProps) => (
           <TableRow key={rowIndex}>
             {columns.map((column, colIndex) => (
               <TableCell key={colIndex} className="pt-2 pb-2">
-                <Skeleton className="h-8 w-full" />
+                <Skeleton className="h-6 w-full" />
               </TableCell>
             ))}
           </TableRow>
