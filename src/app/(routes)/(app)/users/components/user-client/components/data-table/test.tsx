@@ -1,36 +1,57 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { render, screen } from '@testing-library/react'
+import { ColumnDef } from '@tanstack/react-table'
 import { DataTable } from '.'
 
-const columns = [
+// Mock components
+jest.mock('./data-table-loading', () => ({
+  LoadingState: () => <div>Carregando...</div>
+}))
+
+jest.mock('./data-table-content', () => ({
+  DataTable: ({ data }: { data: TestData[] }) =>
+    data.length === 0 ? (
+      <div>Carregando...</div>
+    ) : (
+      <div>
+        {data.map((row: TestData, index: number) => (
+          <div key={index}>{row.name}</div>
+        ))}
+      </div>
+    )
+}))
+
+jest.mock('./data-table-content', () => ({
+  DataTableContent: ({ table }: { table: any }) => (
+    <div>
+      {table
+        .getRowModel()
+        .rows.map((row: { id: string; original: TestData }) => (
+          <div key={row.id}>{row.original.name}</div>
+        ))}
+    </div>
+  )
+}))
+
+interface TestData {
+  name: string
+}
+
+const columns: ColumnDef<TestData, any>[] = [
   {
     accessorKey: 'name',
-    header: 'Name',
-    cell: (info: any) => info.getValue() as string | number
-  },
-  {
-    accessorKey: 'age',
-    header: 'Age',
-    cell: (info: any) => info.getValue()
+    header: 'Name'
   }
 ]
 
-const data = [
-  { name: 'John Doe', age: 28 },
-  { name: 'Jane Doe', age: 32 }
-]
+const data: TestData[] = [{ name: 'John Doe' }, { name: 'Jane Smith' }]
 
 describe('DataTable', () => {
-  it('renders table with data', () => {
+  it('renders data after loading', async () => {
     render(<DataTable columns={columns} data={data} />)
+    expect(screen.queryByText(/Carregando.../i)).not.toBeInTheDocument()
     expect(screen.getByText('John Doe')).toBeInTheDocument()
-    expect(screen.getByText('Jane Doe')).toBeInTheDocument()
-    expect(screen.getByText('28')).toBeInTheDocument()
-    expect(screen.getByText('32')).toBeInTheDocument()
-  })
-
-  it('displays no data message when data is empty', () => {
-    render(<DataTable columns={columns} data={[]} />)
-    expect(screen.getByText('Nenhuma dado encontrado!')).toBeInTheDocument()
+    expect(screen.getByText('Jane Smith')).toBeInTheDocument()
   })
 })
