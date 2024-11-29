@@ -10,3 +10,8 @@ export interface AuthResponse {
     token: string
   }
 }
+
+export interface UserData {
+  name: string
+  role: string
+}

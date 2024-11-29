@@ -9,12 +9,7 @@ import { columns } from './components/data-table/data-table-columns'
 import { Filters } from './components/data-table/data-table-filters'
 import { DataTable } from './components/data-table'
 
-import { Users } from '@/modules/users/types/users'
-
-interface UsersClientProps {
-  data: Users[]
-  setData: (data: Users[]) => void
-}
+import { UsersClientProps } from '@/modules/users/types/users'
 
 export const UsersClient = ({ data, setData }: UsersClientProps) => {
   const router = useRouter()

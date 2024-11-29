@@ -27,3 +27,8 @@ export interface GetUsersQuery {
   name?: string | null
   email?: string | null
 }
+
+export interface UsersClientProps {
+  data: Users[]
+  setData: (data: Users[]) => void
+}
