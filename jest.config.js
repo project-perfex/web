@@ -16,7 +16,9 @@ module.exports = {
     '!src/modules/users/schemas/**',
     '!src/modules/auth/types/**',
     '!src/modules/auth/schemas/**',
-    '!src/modules/auth/services/**'
+    '!src/modules/auth/services/**',
+    '!src/modules/categories/services/**',
+    '!src/modules/categories/types/**'
   ],
   setupFilesAfterEnv: ['<rootDir>/.jest/setup.ts'],
   modulePaths: ['<rootDir>/src/'],
