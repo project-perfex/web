@@ -60,7 +60,9 @@ describe('UsersClient', () => {
 
   it('displays "Novo Usuário" button for admin users', () => {
     render(<UsersClient />)
-    expect(screen.getByText('Novo Usuário')).toBeInTheDocument()
+    expect(
+      screen.getByText((content) => content.startsWith('Novo Usuário'))
+    ).toBeInTheDocument()
   })
 
   it('does not display "Novo Usuário" button for non-admin users', () => {
