@@ -6,21 +6,22 @@ import { PlusCircle } from 'lucide-react'
 import { Heading } from '@/components/heading'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
-import { columns } from './components/data-table/data-table-columns'
-import { Filters } from './components/data-table/data-table-filters'
-import { DataTable } from './components/data-table'
-import { PaginationMeta } from './components/data-table/data-table-pagination'
 import {
   GetUsersPagination,
   UserRole,
   Users
 } from '@/modules/users/types/users'
+import { getUsers } from '@/modules/users/services/users'
+
+import { Filters } from '@/app/(routes)/(app)/users/components/user-client/components/data-table-filters'
+import { columns } from './components/data-table-columns'
+import { PaginationMeta } from '@/components/data-table/data-table-pagination'
+import { DataTable } from '@/components/data-table'
 
 import { useAuth } from '@/hooks/useAuth'
 import useFetchMeta from '@/hooks/useFetchMeta'
 import useFetchData from '@/hooks/useFetchData'
 import usePagination from '@/hooks/usePagination'
-import { getUsers } from '@/modules/users/services/users'
 
 export const UsersClient = () => {
   const router = useRouter()
