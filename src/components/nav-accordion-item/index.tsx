@@ -57,7 +57,7 @@ export const NavAccordionItem = ({ route }: NavAccordionItemProps) => {
           </div>
         </AccordionTrigger>
         <AccordionContent>
-          <nav className="flex flex-col space-y-2">
+          <nav className="flex flex-col space-y-2 p-3">
             {route.children?.map((child) => (
               <NavItem key={child.href} route={child} />
             ))}

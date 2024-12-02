@@ -38,14 +38,15 @@ export const MainNav = () => {
     },
     {
       icon: ShoppingBasket,
-      href: '#',
+      href: '/categories',
       name: 'E-commerce',
+      active: /^\/categories(\/|$)/.test(pathname),
       children: [
         {
           icon: LocateFixed,
           href: '/categories',
           name: 'Categorias',
-          active: pathname === '/categories'
+          active: /^\/categories(\/|$)/.test(pathname)
         },
         {
           icon: PackageSearch,
