@@ -1,18 +1,16 @@
 import { useState, useEffect } from 'react'
-import { getUsers } from '@/modules/users/services/users'
-import { GetUsersPagination } from '@/modules/users/types/users'
 
-const useFetchMeta = () => {
-  const [meta, setMeta] = useState<GetUsersPagination>()
+const useFetchMeta = <T>(getDataFetch: () => Promise<{ meta: T }>) => {
+  const [meta, setMeta] = useState<T | undefined>()
 
   useEffect(() => {
     const fetchMeta = async () => {
-      const response = await getUsers()
+      const response = await getDataFetch()
       setMeta(response.meta)
     }
 
     fetchMeta()
-  }, [])
+  }, [getDataFetch])
 
   return meta
 }

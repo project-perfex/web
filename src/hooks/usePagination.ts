@@ -1,7 +1,10 @@
 import { useState } from 'react'
-import { GetUsersPagination } from '@/modules/users/types/users'
 
-const usePagination = (meta: GetUsersPagination | undefined) => {
+interface PaginationMeta {
+  total: number
+}
+
+const usePagination = <T extends PaginationMeta>(meta: T | undefined) => {
   const [page, setPage] = useState(1)
 
   const handleNextPage = () => {

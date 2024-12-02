@@ -10,19 +10,24 @@ import { columns } from './components/data-table/data-table-columns'
 import { Filters } from './components/data-table/data-table-filters'
 import { DataTable } from './components/data-table'
 import { PaginationMeta } from './components/data-table/data-table-pagination'
-import { UserRole } from '@/modules/users/types/users'
+import {
+  GetUsersPagination,
+  UserRole,
+  Users
+} from '@/modules/users/types/users'
 
 import { useAuth } from '@/hooks/useAuth'
 import useFetchMeta from '@/hooks/useFetchMeta'
 import useFetchData from '@/hooks/useFetchData'
 import usePagination from '@/hooks/usePagination'
+import { getUsers } from '@/modules/users/services/users'
 
 export const UsersClient = () => {
   const router = useRouter()
   const { userData } = useAuth()
 
-  const meta = useFetchMeta()
-  const { data, fetchData, setData } = useFetchData(meta)
+  const meta = useFetchMeta<GetUsersPagination>(getUsers)
+  const { data, fetchData, setData } = useFetchData<Users>(getUsers, meta)
   const { page, handleNextPage, handlePreviousPage } = usePagination(meta)
 
   useEffect(() => {
