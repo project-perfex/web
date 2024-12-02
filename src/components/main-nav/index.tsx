@@ -16,16 +16,19 @@ import {
 
 import { NavItem } from '../nav-item'
 import { NavAccordionItem } from '../nav-accordion-item'
+import { useAuth } from '@/hooks/useAuth'
+import { UserRole } from '@/modules/users/types/users'
 
 export const MainNav = () => {
   const pathname = usePathname()
+  const { userData } = useAuth()
 
   const routes = [
     {
       icon: LayoutDashboard,
-      href: '/',
+      href: '/dashboard',
       name: 'Dashboard',
-      active: pathname === '/'
+      active: pathname === '/dashboard'
     },
     {
       icon: PieChart,
@@ -74,7 +77,8 @@ export const MainNav = () => {
       icon: Users,
       href: '/users',
       name: 'Usuários',
-      active: /^\/users(\/|$)/.test(pathname)
+      active: /^\/users(\/|$)/.test(pathname),
+      isAdmin: userData?.role !== UserRole.ADMIN
     }
   ]
 

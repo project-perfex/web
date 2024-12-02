@@ -27,3 +27,9 @@ export interface GetUsersQuery {
   name?: string | null
   email?: string | null
 }
+
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  MODERATOR = 'MODERATOR',
+  USER = 'USER'
+}

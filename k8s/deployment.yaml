@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: perfex-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: perfex-web
+  template:
+    metadata:
+      labels:
+        app: perfex-web
+    spec:
+      containers:
+      - name: web
+        image: geraldobl58/perfex-web:v1
+        ports:
+          - name: http
+            containerPort: 3000
+            protocol: TCP
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: perfex-web
+spec:
+  selector:
+    app: perfex-web
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 3000
