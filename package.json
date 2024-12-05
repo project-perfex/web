@@ -39,6 +39,7 @@
     "react-hot-toast": "^2.4.1",
     "react-input-mask": "^2.0.4",
     "react-input-mask-next": "^3.0.0-alpha.12",
+    "react-number-format": "^5.4.2",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
