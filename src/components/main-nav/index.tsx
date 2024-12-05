@@ -38,9 +38,9 @@ export const MainNav = () => {
     },
     {
       icon: ShoppingBasket,
-      href: '/categories',
+      href: '/products',
       name: 'E-commerce',
-      active: /^\/categories(\/|$)/.test(pathname),
+      active: /^\/products(\/|$)/.test(pathname),
       children: [
         {
           icon: LocateFixed,
