@@ -29,14 +29,17 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
+import { useEffect, useState } from 'react'
+import { Categories } from '@/modules/categories/types/category'
+import { getCategories } from '@/modules/categories/services/category'
 
 interface FiltersProps {
-  data: Products[]
   setData: (data: Products[]) => void
 }
 
-export const Filters = ({ data, setData }: FiltersProps) => {
+export const Filters = ({ setData }: FiltersProps) => {
   const searchParams = useSearchParams()
+  const [categories, setCategories] = useState<Categories[]>([])
 
   const title = searchParams.get('title')
   const category = searchParams.get('category')
@@ -48,6 +51,17 @@ export const Filters = ({ data, setData }: FiltersProps) => {
       category: category ?? ''
     }
   })
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await getCategories({
+        limit: 100
+      })
+      setCategories(response.data)
+    }
+
+    fetchCategories()
+  }, [])
 
   const handleFilter = async ({ title, category }: ProductFilterSchema) => {
     const params = new URLSearchParams(searchParams.toString())
@@ -127,12 +141,13 @@ export const Filters = ({ data, setData }: FiltersProps) => {
                       </SelectTrigger>
                       <SelectContent>
                         {Array.from(
-                          new Set(
-                            data.map((product) => product.category?.title)
-                          )
+                          new Set(categories.map((category) => category))
                         ).map((category) => (
-                          <SelectItem key={category} value={String(category)}>
-                            {category}
+                          <SelectItem
+                            key={category.id}
+                            value={String(category.id)}
+                          >
+                            {category.title}
                           </SelectItem>
                         ))}
                       </SelectContent>
