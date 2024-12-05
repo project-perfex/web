@@ -26,6 +26,6 @@ describe('LoadingState', () => {
   it('renders correct number of skeletons in table body', () => {
     render(<LoadingState columns={mockColumns} />)
     const bodySkeletons = screen.getAllByRole('cell')
-    expect(bodySkeletons).toHaveLength(mockColumns.length * 5)
+    expect(bodySkeletons).toHaveLength(mockColumns.length * 10)
   })
 })

@@ -51,7 +51,7 @@ export const LoadingState = ({ columns }: LoadingStateProps) => (
         </TableRow>
       </TableHeader>
       <TableBody>
-        {[...Array(5)].map((_, rowIndex) => (
+        {[...Array(10)].map((_, rowIndex) => (
           <TableRow key={rowIndex}>
             {columns.map((column, colIndex) => (
               <TableCell key={colIndex} className="pt-2 pb-2">

@@ -84,7 +84,7 @@ export const Filters = ({ setData }: FiltersProps) => {
 
     const response = await getProducts({
       page: 1,
-      limit: 5,
+      limit: 10,
       title: title ?? undefined,
       category: category ?? undefined
     })
@@ -99,7 +99,7 @@ export const Filters = ({ setData }: FiltersProps) => {
     window.history.replaceState(null, '', window.location.pathname)
     const response = await getProducts({
       page: 1,
-      limit: 5
+      limit: 10
     })
     setData(response.data)
   }
@@ -107,22 +107,15 @@ export const Filters = ({ setData }: FiltersProps) => {
     <>
       <p className="text-sm mb-4">Filtro de pesquisa</p>
       <Form {...form}>
-        <form
-          onSubmit={form.handleSubmit(handleFilter)}
-          className="space-y-8 w-full"
-        >
-          <div className="flex items-end w-full gap-4">
+        <form onSubmit={form.handleSubmit(handleFilter)} className="space-y-8">
+          <div className="flex items-center w-full gap-4">
             <FormField
               control={form.control}
               name="title"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormControl>
-                    <Input
-                      placeholder="Título"
-                      className="w-[630px]"
-                      {...field}
-                    />
+                    <Input placeholder="Título" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -133,10 +126,10 @@ export const Filters = ({ setData }: FiltersProps) => {
               control={form.control}
               name="category"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="w-full">
                   <FormControl>
                     <Select {...field} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-[630px]">
+                      <SelectTrigger className="w-full">
                         <SelectValue placeholder="Categoria" />
                       </SelectTrigger>
                       <SelectContent>
