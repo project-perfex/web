@@ -41,7 +41,7 @@ describe('<Filters />', () => {
     await waitFor(() => {
       expect(getCategories).toHaveBeenCalledWith({
         page: 1,
-        limit: 5,
+        limit: 10,
         title: 'Automotive'
       })
       expect(setData).toHaveBeenCalledWith([])
@@ -59,7 +59,7 @@ describe('<Filters />', () => {
     await waitFor(() => {
       expect(getCategories).toHaveBeenCalledWith({
         page: 1,
-        limit: 5
+        limit: 10
       })
       expect(setData).toHaveBeenCalledWith([])
     })

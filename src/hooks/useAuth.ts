@@ -36,7 +36,7 @@ export const useAuth = () => {
       )
       const decodedToken: UserData = jwtDecode(response.data.token)
       setUserData(decodedToken)
-      router.push('/users')
+      router.push('/dashboard')
     } catch (error) {
       toast.error('Usuário ou senha inválidos')
       console.error(error)
