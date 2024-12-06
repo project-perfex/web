@@ -8,17 +8,15 @@ import { Search, X } from 'lucide-react'
 import { Input } from '@/components/ui/input'
 
 import { Button } from '@/components/ui/button'
-
 import {
-  userFilterSchema,
-  UserFilterSchema
-} from '@/modules/users/schemas/user'
-
-import { Users } from '@/modules/users/types/users'
-import { getUsers } from '@/modules/users/services/users'
+  CustomerFilterSchema,
+  customerFilterSchema
+} from '@/modules/customers/schemas/customer'
+import { Customers } from '@/modules/customers/types/customer'
+import { getCustomers } from '@/modules/customers/services/customer'
 
 interface FiltersProps {
-  setData: (data: Users[]) => void
+  setData: (data: Customers[]) => void
 }
 
 export const Filters = ({ setData }: FiltersProps) => {
@@ -27,15 +25,15 @@ export const Filters = ({ setData }: FiltersProps) => {
   const name = searchParams.get('name')
   const email = searchParams.get('email')
 
-  const { register, handleSubmit, reset } = useForm<UserFilterSchema>({
-    resolver: zodResolver(userFilterSchema),
+  const { register, handleSubmit, reset } = useForm<CustomerFilterSchema>({
+    resolver: zodResolver(customerFilterSchema),
     defaultValues: {
       name: name ?? '',
       email: email ?? ''
     }
   })
 
-  const handleFilter = async ({ name, email }: UserFilterSchema) => {
+  const handleFilter = async ({ name, email }: CustomerFilterSchema) => {
     const params = new URLSearchParams(searchParams.toString())
 
     if (name) {
@@ -54,7 +52,7 @@ export const Filters = ({ setData }: FiltersProps) => {
 
     window.history.replaceState(null, '', `?${params.toString()}`)
 
-    const response = await getUsers({
+    const response = await getCustomers({
       page: 1,
       limit: 10,
       name: name ?? undefined,
@@ -69,7 +67,7 @@ export const Filters = ({ setData }: FiltersProps) => {
       email: ''
     })
     window.history.replaceState(null, '', window.location.pathname)
-    const response = await getUsers({
+    const response = await getCustomers({
       page: 1,
       limit: 10
     })
