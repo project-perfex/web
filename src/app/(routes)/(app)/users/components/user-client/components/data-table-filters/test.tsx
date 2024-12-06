@@ -44,7 +44,7 @@ describe('<Filters />', () => {
     await waitFor(() => {
       expect(getUsers).toHaveBeenCalledWith({
         page: 1,
-        limit: 5,
+        limit: 10,
         name: 'John',
         email: 'john@example.com'
       })
@@ -63,7 +63,7 @@ describe('<Filters />', () => {
     await waitFor(() => {
       expect(getUsers).toHaveBeenCalledWith({
         page: 1,
-        limit: 5
+        limit: 10
       })
       expect(setData).toHaveBeenCalledWith([])
     })

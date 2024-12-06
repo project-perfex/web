@@ -18,12 +18,12 @@ const UserIdPage = ({ params }: UserIdPageProps) => {
   const [user, setUser] = useState<Users | null>(null)
 
   useEffect(() => {
-    const fetchCategory = async () => {
+    const fetchUser = async () => {
       const data = await getUserById(params.userId)
       setUser(data)
     }
 
-    fetchCategory()
+    fetchUser()
   }, [params.userId])
 
   return (

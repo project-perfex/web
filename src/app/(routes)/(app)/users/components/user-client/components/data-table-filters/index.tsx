@@ -56,7 +56,7 @@ export const Filters = ({ setData }: FiltersProps) => {
 
     const response = await getUsers({
       page: 1,
-      limit: 5,
+      limit: 10,
       name: name ?? undefined,
       email: email ?? undefined
     })
@@ -71,7 +71,7 @@ export const Filters = ({ setData }: FiltersProps) => {
     window.history.replaceState(null, '', window.location.pathname)
     const response = await getUsers({
       page: 1,
-      limit: 5
+      limit: 10
     })
     setData(response.data)
   }
