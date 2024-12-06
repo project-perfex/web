@@ -47,7 +47,7 @@ export const Filters = ({ setData }: FiltersProps) => {
 
     const response = await getCategories({
       page: 1,
-      limit: 5,
+      limit: 10,
       title: title ?? undefined
     })
     setData(response.data)
@@ -60,7 +60,7 @@ export const Filters = ({ setData }: FiltersProps) => {
     window.history.replaceState(null, '', window.location.pathname)
     const response = await getCategories({
       page: 1,
-      limit: 5
+      limit: 10
     })
     setData(response.data)
   }
