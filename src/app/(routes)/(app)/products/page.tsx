@@ -2,13 +2,9 @@
 
 import { Suspense } from 'react'
 
-import useAuthToken from '@/hooks/useAuthToken'
-
 import { ProductsClient } from './components/products-client'
 
 const ProductsPage = () => {
-  useAuthToken()
-
   return (
     <div className="flex-col">
       <Suspense>

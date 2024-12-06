@@ -2,12 +2,9 @@
 
 import { Suspense } from 'react'
 
-import useAuthToken from '@/hooks/useAuthToken'
 import { CategoriesClient } from './components/categories-client'
 
 const CategoriesPage = () => {
-  useAuthToken()
-
   return (
     <div className="flex-col">
       <Suspense>

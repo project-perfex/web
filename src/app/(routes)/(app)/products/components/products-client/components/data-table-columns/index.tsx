@@ -22,7 +22,10 @@ export const columns: ColumnDef<Products>[] = [
   },
   {
     accessorKey: 'description',
-    header: 'Descrição'
+    header: 'Descrição',
+    cell: ({ row }) => {
+      return <span>{row.original.description.slice(0, 50)}...</span>
+    }
   },
   {
     accessorKey: 'categoryId',
