@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation'
 
 import {
+  Headset,
   LayoutDashboard,
   LocateFixed,
   PackageSearch,
@@ -38,7 +39,7 @@ export const MainNav = () => {
     },
     {
       icon: ShoppingBasket,
-      href: '/customers',
+      href: '/opportunities',
       name: 'E-commerce',
       active: /^\/customers(\/|$)/.test(pathname),
       children: [
@@ -52,19 +53,25 @@ export const MainNav = () => {
           icon: PackageSearch,
           href: '/products',
           name: 'Produtos',
-          active: pathname === '/products'
+          active: /^\/products(\/|$)/.test(pathname)
         },
         {
           icon: UserCircle,
           href: '/customers',
           name: 'Clientes',
-          active: pathname === '/customers'
+          active: /^\/customers(\/|$)/.test(pathname)
+        },
+        {
+          icon: Headset,
+          href: '/opportunities',
+          name: 'Oportunidades',
+          active: /^\/opportunities(\/|$)/.test(pathname)
         },
         {
           icon: Shuffle,
           href: '/orders',
           name: 'Pedidos',
-          active: pathname === '/orders'
+          active: /^\/orders(\/|$)/.test(pathname)
         }
       ]
     },
