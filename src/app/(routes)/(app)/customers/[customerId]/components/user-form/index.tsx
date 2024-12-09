@@ -169,7 +169,7 @@ export const CustomerForm = ({ initialData }: CustomerFormProps) => {
                   <FormControl>
                     <Input
                       disabled={loading}
-                      placeholder="Digite a senha"
+                      placeholder="Digite o endereço"
                       {...field}
                     />
                   </FormControl>
