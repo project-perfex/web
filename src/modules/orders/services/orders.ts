@@ -24,7 +24,7 @@ export const getOrders = async (param: GetOrdersQuery = {}) => {
   }
 }
 
-export const addOrders = async (order: Orders) => {
+export const addOrder = async (order: Orders) => {
   const response = await api.post('/orders', order)
   return response.data
 }
