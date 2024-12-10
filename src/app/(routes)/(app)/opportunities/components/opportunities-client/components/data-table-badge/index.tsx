@@ -1,4 +1,5 @@
 import { OpportunityStatus } from '@/enums'
+import { cn } from '@/lib/utils'
 
 export interface StatusBadgeProps {
   bgColor: string
@@ -8,7 +9,20 @@ export interface StatusBadgeProps {
 const StatusBadge = ({ bgColor, label }: StatusBadgeProps) => {
   return (
     <span
-      className={`bg-${bgColor} text-white text-xs font-semibold flex items-center justify-center w-[120px] p-1 rounded-full`}
+      className={cn(
+        `
+          text-white
+          text-xs
+          font-semibold
+          flex
+          items-center
+          justify-center
+          w-[120px]
+          p-1
+          rounded-full
+        `,
+        `bg-${bgColor}`
+      )}
     >
       {label}
     </span>
