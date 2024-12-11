@@ -79,14 +79,14 @@ export const OrderForm = ({ initialData }: OrderFormProps) => {
   })
 
   useEffect(() => {
-    const fetchOpportunity = async () => {
+    const fetchOrders = async () => {
       const response = await getOrders({
         limit: 100
       })
       setOrders(response.data)
     }
 
-    fetchOpportunity()
+    fetchOrders()
   }, [])
 
   useEffect(() => {
@@ -318,7 +318,7 @@ export const OrderForm = ({ initialData }: OrderFormProps) => {
               variant="destructive"
               disabled={loading}
               className="ml-2"
-              onClick={() => router.push(`/opportunities`)}
+              onClick={() => router.push(`/orders`)}
             >
               <XCircle className="size-4" />
               Cancelar
