@@ -7,8 +7,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 
 import { Search, X } from 'lucide-react'
 
-import { Input } from '@/components/ui/input'
-
 import { Button } from '@/components/ui/button'
 
 import {
@@ -25,64 +23,64 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select'
-import { Opportunities } from '@/modules/opportunities/types/opportunities'
-import {
-  opportunitiesFilterSchema,
-  OpportunitiesFilterSchema
-} from '@/modules/opportunities/schemas/opportunities'
-import { getOpportunities } from '@/modules/opportunities/services/opportunities'
 
-import { OpportunityStatus } from '@/enums'
+import { Orders } from '@/modules/orders/types/orders'
+import {
+  OrdersFilterSchema,
+  ordersFilterSchema
+} from '@/modules/orders/schema/orders'
+import { getOrders } from '@/modules/orders/services/orders'
+import { OrderStatus } from '@/enums'
 
 interface FiltersProps {
-  setData: (data: Opportunities[]) => void
+  setData: (data: Orders[]) => void
 }
 
 export const Filters = ({ setData }: FiltersProps) => {
   const searchParams = useSearchParams()
-  const [opportunities, setOpportunities] = useState<Opportunities[]>([])
+  const [orders, setOrders] = useState<Orders[]>([])
 
-  const title = searchParams.get('title')
   const status = searchParams.get('status')
+  const user = searchParams.get('user')
   const customer = searchParams.get('customer')
 
-  const form = useForm<OpportunitiesFilterSchema>({
-    resolver: zodResolver(opportunitiesFilterSchema),
+  const form = useForm<OrdersFilterSchema>({
+    resolver: zodResolver(ordersFilterSchema),
     defaultValues: {
-      title: title ?? '',
       status: status ?? '',
+      user: user ?? '',
       customer: customer ?? ''
     }
   })
 
   useEffect(() => {
-    const fetchOpportunities = async () => {
-      const response = await getOpportunities({
+    const fetchOrders = async () => {
+      const response = await getOrders({
         limit: 100
       })
-      setOpportunities(response.data)
+      setOrders(response.data)
     }
 
-    fetchOpportunities()
+    fetchOrders()
   }, [])
 
   const handleFilter = async ({
-    title,
     status,
+    user,
     customer
-  }: OpportunitiesFilterSchema) => {
+  }: OrdersFilterSchema) => {
     const params = new URLSearchParams(searchParams.toString())
-
-    if (title) {
-      params.set('title', title)
-    } else {
-      params.delete('title')
-    }
 
     if (status) {
       params.set('status', status)
     } else {
       params.delete('status')
+    }
+
+    if (user) {
+      params.set('user', user)
+    } else {
+      params.delete('user')
     }
 
     if (customer) {
@@ -95,11 +93,11 @@ export const Filters = ({ setData }: FiltersProps) => {
 
     window.history.replaceState(null, '', `?${params.toString()}`)
 
-    const response = await getOpportunities({
+    const response = await getOrders({
       page: 1,
       limit: 10,
-      title: title ?? undefined,
       status: status ?? undefined,
+      user: user ?? undefined,
       customer: customer ?? undefined
     })
     setData(response.data)
@@ -107,12 +105,12 @@ export const Filters = ({ setData }: FiltersProps) => {
 
   const handleClearFilter = async () => {
     form.reset({
-      title: '',
       status: '',
+      user: '',
       customer: ''
     })
     window.history.replaceState(null, '', window.location.pathname)
-    const response = await getOpportunities({
+    const response = await getOrders({
       page: 1,
       limit: 10
     })
@@ -126,17 +124,62 @@ export const Filters = ({ setData }: FiltersProps) => {
           <div className="flex items-center w-full gap-4">
             <FormField
               control={form.control}
-              name="title"
+              name="status"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormControl>
-                    <Input placeholder="Título" {...field} />
+                    <Select {...field} onValueChange={field.onChange}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Status" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value={OrderStatus.PENDING}>
+                          Pendente
+                        </SelectItem>
+                        <SelectItem value={OrderStatus.SHIPPED}>
+                          Enviado
+                        </SelectItem>
+                        <SelectItem value={OrderStatus.DELIVERED}>
+                          Entregue
+                        </SelectItem>
+                        <SelectItem value={OrderStatus.CANCELED}>
+                          Cancelado
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-
+            <FormField
+              control={form.control}
+              name="user"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormControl>
+                    <Select {...field} onValueChange={field.onChange}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue placeholder="Usuário" />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {Array.from(
+                          new Set(orders.map((order) => order.user))
+                        ).map((order, index) => (
+                          <SelectItem
+                            key={`${order?.id}-${index}`}
+                            value={String(order?.name)}
+                          >
+                            {order?.name}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="customer"
@@ -149,49 +192,15 @@ export const Filters = ({ setData }: FiltersProps) => {
                       </SelectTrigger>
                       <SelectContent>
                         {Array.from(
-                          new Set(
-                            opportunities.map(
-                              (opportunity) => opportunity.customer
-                            )
-                          )
-                        ).map((opportunity) => (
+                          new Set(orders.map((order) => order.customer))
+                        ).map((order, index) => (
                           <SelectItem
-                            key={opportunity?.id}
-                            value={String(opportunity?.name)}
+                            key={`${order?.id}-${index}`}
+                            value={String(order?.name)}
                           >
-                            {opportunity?.name}
+                            {order?.name}
                           </SelectItem>
                         ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="status"
-              render={({ field }) => (
-                <FormItem className="w-full">
-                  <FormControl>
-                    <Select {...field} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Status" />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value={OpportunityStatus.OPEN}>
-                          Aberto
-                        </SelectItem>
-                        <SelectItem value={OpportunityStatus.INPROGRESS}>
-                          Em progresso
-                        </SelectItem>
-                        <SelectItem value={OpportunityStatus.ONHOLD}>
-                          Em analise
-                        </SelectItem>
-                        <SelectItem value={OpportunityStatus.CLOSED}>
-                          Fechado
-                        </SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>

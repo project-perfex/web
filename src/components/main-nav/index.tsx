@@ -39,9 +39,9 @@ export const MainNav = () => {
     },
     {
       icon: ShoppingBasket,
-      href: '/opportunities',
+      href: '/orders',
       name: 'E-commerce',
-      active: /^\/customers(\/|$)/.test(pathname),
+      active: /^\/orders(\/|$)/.test(pathname),
       children: [
         {
           icon: LocateFixed,
@@ -62,18 +62,18 @@ export const MainNav = () => {
           active: /^\/customers(\/|$)/.test(pathname)
         },
         {
-          icon: Headset,
-          href: '/opportunities',
-          name: 'Oportunidades',
-          active: /^\/opportunities(\/|$)/.test(pathname)
-        },
-        {
           icon: Shuffle,
           href: '/orders',
           name: 'Pedidos',
           active: /^\/orders(\/|$)/.test(pathname)
         }
       ]
+    },
+    {
+      icon: Headset,
+      href: '/opportunities',
+      name: 'Oportunidades',
+      active: /^\/opportunities(\/|$)/.test(pathname)
     },
     {
       icon: Wallet,
