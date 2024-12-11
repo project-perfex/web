@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 
 import toast from 'react-hot-toast'
 
-import { Edit, MoreHorizontal, Trash } from 'lucide-react'
+import { Edit, Eye, MoreHorizontal, Trash } from 'lucide-react'
 
 import {
   DropdownMenu,
@@ -80,6 +80,16 @@ export const CellAction = ({ data }: CellActionProps) => {
             <Trash className="mr-2 h-4 w-4" />
             <span className="sr-only">Excluir</span>
             Excluir
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            className="cursor-pointer"
+            onClick={() => {
+              router.push(`/orders/order-details/${data.id}`)
+            }}
+          >
+            <Eye className="mr-2 h-4 w-4" />
+            <span className="sr-only">Detalhes</span>
+            Detalhes
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
