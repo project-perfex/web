@@ -157,7 +157,7 @@ export const Filters = ({ setData }: FiltersProps) => {
                         ).map((opportunity) => (
                           <SelectItem
                             key={opportunity?.id}
-                            value={String(opportunity?.id)}
+                            value={String(opportunity?.name)}
                           >
                             {opportunity?.name}
                           </SelectItem>
