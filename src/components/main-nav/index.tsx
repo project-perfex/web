@@ -62,18 +62,18 @@ export const MainNav = () => {
           active: /^\/customers(\/|$)/.test(pathname)
         },
         {
-          icon: Headset,
-          href: '/opportunities',
-          name: 'Oportunidades',
-          active: /^\/opportunities(\/|$)/.test(pathname)
-        },
-        {
           icon: Shuffle,
           href: '/orders',
           name: 'Pedidos',
           active: /^\/orders(\/|$)/.test(pathname)
         }
       ]
+    },
+    {
+      icon: Headset,
+      href: '/opportunities',
+      name: 'Oportunidades',
+      active: /^\/opportunities(\/|$)/.test(pathname)
     },
     {
       icon: Wallet,
