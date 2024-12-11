@@ -165,8 +165,11 @@ export const Filters = ({ setData }: FiltersProps) => {
                       <SelectContent>
                         {Array.from(
                           new Set(orders.map((order) => order.user))
-                        ).map((order) => (
-                          <SelectItem key={order?.id} value={String(order?.id)}>
+                        ).map((order, index) => (
+                          <SelectItem
+                            key={`${order?.id}-${index}`}
+                            value={String(order?.name)}
+                          >
                             {order?.name}
                           </SelectItem>
                         ))}
@@ -190,8 +193,11 @@ export const Filters = ({ setData }: FiltersProps) => {
                       <SelectContent>
                         {Array.from(
                           new Set(orders.map((order) => order.customer))
-                        ).map((order) => (
-                          <SelectItem key={order?.id} value={String(order?.id)}>
+                        ).map((order, index) => (
+                          <SelectItem
+                            key={`${order?.id}-${index}`}
+                            value={String(order?.name)}
+                          >
                             {order?.name}
                           </SelectItem>
                         ))}
